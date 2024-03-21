@@ -15,19 +15,14 @@ on:
         default: ''
         type: choice
         options:
-        - shrp-12.1
         - v3_11.0
-        - v3_10.0
       DEVICE_TREE:
         description: 'Custom Recovery Tree' # Your already made Device Tree for TWRP
         required: true
         default: ''
         type: choice
         options:
-        - https://github.com/nitheshd30/device_infinix_X6812.git
-        - https://github.com/nitheshd30/SHRP.git
-        - https://github.com/nitheshd30/android_device_infinix_hot11s.git
-        - https://github.com/nitheshd30/X6812.git
+        - https://github.com/nitheshd30/SHRP_Builder.git
       DEVICE_TREE_BRANCH:
         description: 'Custom Recovery Tree Branch' # Your Device Tree Branch, make sure it's right.
         required: true
@@ -40,7 +35,7 @@ on:
       DEVICE_PATH:
         description: 'Specify your Device Path' # As is, just like your DEVICE_PATH in your BoardConfig.mk
         required: true
-        default: 'device/infinix/Infinix-X6812'
+        default: 'device/infinix/X6812'
       DEVICE_NAME:
         description: 'Specify your Device Codename' # As is, just like your PRODUCT_DEVICE in your device tree.
         required: true
@@ -165,8 +160,8 @@ jobs:
     - name: Renaming into TWRP
       run: |
         cd out/target/product/${{ github.event.inputs.DEVICE_NAME }}
-        mv ${{ github.event.inputs.BUILD_TARGET }}.img ${{ github.event.inputs.MANIFEST_BRANCH }}_3.7.0-v000-${{ github.event.inputs.DEVICE_NAME }}-${{ steps.props.outputs.date }}.img
-        echo "Done renaming into ${{ github.event.inputs.MANIFEST_BRANCH }}_3.7.0-v000-${{ github.event.inputs.DEVICE_NAME }}-${{ steps.props.outputs.date }}.img"
+        mv ${{ github.event.inputs.BUILD_TARGET }}.img ${{ github.event.inputs.MANIFEST_BRANCH }}-SHRP-${{ github.event.inputs.DEVICE_NAME }}-${{ steps.props.outputs.date }}.img
+        echo "Done renaming into ${{ github.event.inputs.MANIFEST_BRANCH }}-SHRP-${{ github.event.inputs.DEVICE_NAME }}-${{ steps.props.outputs.date }}.img"
       working-directory: ${{ steps.pwd.outputs.workdir }}
       
     - name: Upload to Release
@@ -182,11 +177,6 @@ jobs:
           Device: ${{ github.event.inputs.DEVICE_NAME }}
           Manifest: ${{ github.event.inputs.MANIFEST_URL }} -b ${{ github.event.inputs.MANIFEST_BRANCH }}
           Status: Alpha - Test it Yourself.
-
-    - name: Link of Release
-      run: |
-        echo "Here is your newly-built Custom Recovery."
-        echo "https://github.com/${GITHUB_REPOSITORY}/releases/tag/${{ github.run_id }}-${{ steps.props.outputs.date }}
 
     - name: Clone LDChecker
       run: |
