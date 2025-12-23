@@ -38,6 +38,9 @@ on:
         description: 'Specify your Device Path' # As is, just like your DEVICE_PATH in your BoardConfig.mk
         required: true
         default: 'device/infinix/X6812'
+        type: choice
+        options:
+        - device/nothing/spacewar
       DEVICE_NAME:
         description: 'Specify your Device Codename' # As is, just like your PRODUCT_DEVICE in your device tree.
         required: true
