@@ -42,21 +42,25 @@ on:
         default: ''
         type: choice
         options:
-        - device/nothing/spacewar
+        - device/nothing/Spacewar
         - device/infinix/X6812
       DEVICE_NAME:
         description: 'Specify your Device Codename' # As is, just like your PRODUCT_DEVICE in your device tree.
         required: true
-        default: 'X6812'
+        default: ''
+        type: choice
+        options:
+        - Spacewar
+        - X6812
       MAKEFILE_NAME:
         description: 'Specify your Makefile Name' # Look for twrp_ or omni_codename.mk, just remove the .mk
         required: true
-        default: 'twrp_X6812'
+        default: ''
         type: choice
         options:
         - twrp_X6812
         - omni_Infinix-X6812
-        - twrp_spacewar
+        - twrp_Spacewar
       BUILD_TARGET:
         description: 'Specify your Build Target' # Pick among boot, recovery and vendor_boot
         required: true
